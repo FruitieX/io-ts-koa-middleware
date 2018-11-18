@@ -1,0 +1,25 @@
+{
+  "name": "io-ts-koa-middleware",
+  "version": "1.0.0",
+  "description": "Validate requests with io-ts in your Koa middleware",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "repository": "git@github.com:FruitieX/io-ts-koa-middleware.git",
+  "author": "Rasmus Eskola <fruitiex@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/koa": "^2.0.46",
+    "@types/koa-router": "^7.0.34",
+    "fp-ts": "^1.10.0",
+    "io-ts": "^1.4.1",
+    "io-ts-reporters": "^0.0.21",
+    "koa-body": "^4.0.4"
+  },
+  "devDependencies": {
+    "prettier": "^1.15.2",
+    "typescript": "^3.1.6"
+  },
+  "scripts": {
+    "prepublish": "tsc"
+  }
+}
