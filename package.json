@@ -2,6 +2,9 @@
   "name": "io-ts-koa-middleware",
   "version": "1.0.0",
   "description": "Validate requests with io-ts in your Koa middleware",
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "repository": "git@github.com:FruitieX/io-ts-koa-middleware.git",
