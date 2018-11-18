@@ -20,7 +20,7 @@ interface IValidatedParams {
 
 type ContextWithDecoded<T> = Context & { decoded: T };
 
-const decodeRequest = <T>(reqType: t.InterfaceType<IValidatedParams, T>) => (
+export const decodeRequest = <T>(reqType: t.InterfaceType<IValidatedParams, T>) => (
   handler: (ctx: ContextWithDecoded<T>, next: NextFunction) => any,
 ) => (ctx: Context, next: NextFunction) =>
   reqType
@@ -38,5 +38,3 @@ const decodeRequest = <T>(reqType: t.InterfaceType<IValidatedParams, T>) => (
         ),
       decoded => handler(Object.assign(ctx, { decoded }), next),
     );
-
-export default decodeRequest

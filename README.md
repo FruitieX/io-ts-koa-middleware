@@ -13,7 +13,7 @@ can safely read from it in your middleware.
 
 ```ts
 import * as t from 'io-ts';
-import decodeRequest from 'io-ts-koa-middleware';
+import { decodeRequest } from 'io-ts-koa-middleware';
 
 const ReqType = t.type({
   query: t.type({
