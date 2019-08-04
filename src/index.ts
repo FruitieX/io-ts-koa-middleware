@@ -1,6 +1,8 @@
 import * as t from 'io-ts';
 import { formatValidationError } from 'io-ts-reporters';
 import * as array from 'fp-ts/lib/Array';
+import { pipe } from 'fp-ts/lib/pipeable';
+import * as E from 'fp-ts/lib/Either';
 
 import { Context } from 'koa';
 
@@ -20,21 +22,25 @@ interface IValidatedParams {
 
 type ContextWithDecoded<T> = Context & { decoded: T };
 
-export const decodeRequest = <T>(reqType: t.InterfaceType<IValidatedParams, T>) => (
-  handler: (ctx: ContextWithDecoded<T>, next: NextFunction) => any,
-) => (ctx: Context, next: NextFunction) =>
-  reqType
-    .decode({
+export const decodeRequest = <T>(
+  reqType: t.InterfaceType<IValidatedParams, T>,
+) => (handler: (ctx: ContextWithDecoded<T>, next: NextFunction) => any) => (
+  ctx: Context,
+  next: NextFunction,
+) =>
+  pipe(
+    reqType.decode({
       body: ctx.request.body,
       headers: ctx.headers,
       params: ctx.params,
       query: ctx.request.query,
-    })
-    .fold(
+    }),
+    E.fold(
       errors =>
         ctx.throw(
           400,
-          array.catOptions(errors.map(formatValidationError)).join('\n'),
+          array.compact(errors.map(formatValidationError)).join('\n'),
         ),
       decoded => handler(Object.assign(ctx, { decoded }), next),
-    );
+    ),
+  );
